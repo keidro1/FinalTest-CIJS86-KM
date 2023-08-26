@@ -1,27 +1,14 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import TodoFooter from "./components/TodoFooter";
 import TodoHeader from "./components/TodoHeader";
 import TodoPage from "./components/TodoPage";
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      title: "To do 1",
-      isCompleted: false,
-    },
-    {
-      id: 2,
-      title: "To do 2",
-      isCompleted: true,
-    },
-    {
-      id: 3,
-      title: "To do 3",
-      isCompleted: false,
-    },
-  ]);
+  const [todos, setTodos] = useState(() => {
+    const storedTodos = localStorage.getItem('todos');
+    return storedTodos ? JSON.parse(storedTodos) : [];
+  });
 
   const onAddTodo = (newTodo) => {
     const newTodos = [newTodo, ...todos];
